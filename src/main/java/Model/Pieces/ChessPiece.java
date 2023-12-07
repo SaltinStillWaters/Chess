@@ -1,9 +1,11 @@
-package Model;
+package Model.Pieces;
+
+import Model.ChessBoard.Tile;
 
 
 public abstract class ChessPiece 
 {
-    abstract boolean checkMove();
+    abstract boolean checkMove(Tile destTile);
     
     public void move(String destCoordinate)
     {

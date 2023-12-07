@@ -1,4 +1,6 @@
-package Model;
+package Model.ChessBoard;
+
+import Model.Pieces.ChessPiece;
 
 
 public class Tile 

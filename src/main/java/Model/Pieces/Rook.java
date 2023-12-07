@@ -1,11 +1,14 @@
+package Model.Pieces;
 
+
+import Model.ChessBoard.Tile;
 import java.util.ArrayList;
 
 
 public class Rook extends ChessPiece {
 
-    public Rook(String currTileIndex, ArrayList<Tile> initialTiles, String color) {
-        super(currTileIndex, initialTiles, color);
+    public Rook()
+    {
     }
 
     @Override
