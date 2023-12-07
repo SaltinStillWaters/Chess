@@ -26,6 +26,8 @@ class Bishop extends chessPiece
 class ChessBoard
 {
 	ArrayList<ArrayList<Tile>> tilesGrid;
+        setTilePiece
+        getTilePiece    
 }
 
 class Tile
