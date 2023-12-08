@@ -5,9 +5,9 @@ import Model.ChessBoard.Tile;
 
 public abstract class ChessPiece 
 {
-    abstract boolean checkMove(Tile destTile);
+    public abstract boolean checkMove(String currCoordinate, String destCoordinate);
     
-    public void move(String destCoordinate)
+    public void move(String currCoordinate, String destCoordinate)
     {
         //code
     }
