@@ -1,15 +1,7 @@
+
 package Model.Pieces;
 
-
-import Model.ChessBoard.Tile;
-import java.util.ArrayList;
-
-
-public class Rook extends ChessPiece {
-
-    public Rook()
-    {
-    }
+public class Queen extends ChessPiece{
 
     @Override
     boolean checkMove(String currCoordinate, String destCoordinate) {
@@ -20,7 +12,11 @@ public class Rook extends ChessPiece {
             return true;
         } else if (colDiff == 0 && rowDiff !=0){
             return true;
-        } else {
+        } else if (colDiff == rowDiff){
+            return true;
+        } else{
             return false;
-        }  
+        }
+    }
+    
 }

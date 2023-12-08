@@ -38,3 +38,4 @@ class Tile
 	
 	setters and getters
 }
+

@@ -9,9 +9,9 @@ public class Bishop extends ChessPiece {
     }
 
     @Override
-    public boolean checkMove(String currCoordinate, String destCoordinate) 
-    {
-        return true;
-        //will be updated by Rolf
+    boolean checkMove(String currCoordinate, String destCoordinate) {
+        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
+        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        return colDiff == rowDiff; 
     }
 }
