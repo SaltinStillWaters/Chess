@@ -12,7 +12,7 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    boolean checkMove(String currCoordinate, String destCoordinate) {
+    public boolean checkMove(String currCoordinate, String destCoordinate) {
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
         int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
         
@@ -23,4 +23,5 @@ public class Rook extends ChessPiece {
         } else {
             return false;
         }  
+    }
 }
