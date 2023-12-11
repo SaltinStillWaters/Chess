@@ -1,6 +1,6 @@
-class that:
+Model class that:
 - extend MouseAdapter
-- overrides mouseCLicked(MouseEvent)
+- overrides mouseCLicked(MouseEvent e)
 
 Make a model singleton
 	Tile currTile
