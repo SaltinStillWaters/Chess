@@ -4,12 +4,17 @@ package Model.Pieces;
 public class Pawn extends ChessPiece
 {
 
+    public Pawn(boolean isWhite)
+    {
+        super(isWhite, "Pawn");
+    }
+    
     @Override
     public boolean checkMove(String currCoordinate, String destCoordinate)
     {
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
         
-        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
         
         
         boolean isValid = true;
@@ -17,18 +22,29 @@ public class Pawn extends ChessPiece
         {
             isValid = false;
         }
-        else if (rowDiff < 0)
-        {
-            System.out.println("backward");
-            isValid = false;
-        }
-        else if (rowDiff > 2)
+        else if (Math.abs(rowDiff) > 2)
         {
             isValid = false;
         }
-        else if (rowDiff == 2)
+        else if (Math.abs(rowDiff) == 2)
         {
             if (currCoordinate.charAt(1) != '2' && currCoordinate.charAt(1) != '7')
+            {
+                isValid = false;
+            }
+        }
+        
+        //backward move
+        if (this.isWhite)
+        {
+            if (rowDiff < 0)
+            {
+                isValid = false;
+            }
+        }
+        else
+        {
+            if (rowDiff > 0)
             {
                 isValid = false;
             }

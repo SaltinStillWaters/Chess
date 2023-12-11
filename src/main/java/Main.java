@@ -12,10 +12,7 @@ public class Main
         SwingUtilities.invokeLater(() -> 
         {
             new MainFrame();
-            
-            Pawn pawn = new Pawn();
-            
-            System.out.println(pawn.checkMove("F2", "F4"));
+           
         });
     }
 }   

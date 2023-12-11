@@ -1,0 +1,18 @@
+Model class that:
+- extend MouseAdapter
+- overrides mouseCLicked(MouseEvent e)
+
+Make a model singleton
+	Tile currTile
+	Tile destTile
+
+
+mouseClicked(MouseEvent e)
+{
+	get the first TilePanel clicked
+	get PieceLabel
+	remove Piecelabel from TilePanel_1
+
+	get the second TilePanel clicked
+	set PieceLabel to TilePanel_2
+}

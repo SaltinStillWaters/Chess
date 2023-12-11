@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
 
-    public Rook()
+    public Rook(boolean isWhite)
     {
+        super(isWhite, "Rook");
     }
 
     @Override
