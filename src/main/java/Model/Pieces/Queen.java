@@ -3,6 +3,11 @@ package Model.Pieces;
 
 public class Queen extends ChessPiece{
 
+    public Queen(boolean isWhite)
+    {
+        super(isWhite, "Queen");
+    }
+    
     @Override
     public boolean checkMove(String currCoordinate, String destCoordinate) {
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);

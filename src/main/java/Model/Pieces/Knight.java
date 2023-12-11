@@ -4,6 +4,11 @@ package Model.Pieces;
 public class Knight extends ChessPiece
 {
 
+    public Knight(boolean isWhite)
+    {
+        super(isWhite, "Knight");
+    }
+    
     @Override
     public boolean checkMove(String currCoordinate, String destCoordinate)
     {

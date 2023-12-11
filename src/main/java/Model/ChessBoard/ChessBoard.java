@@ -1,5 +1,6 @@
 package Model.ChessBoard;
 
+import Model.Pieces.*;
 import java.util.ArrayList;
 
 
@@ -26,10 +27,7 @@ public class ChessBoard
             {
                 String coordinate = col + Character.toString((char) ('1' + y));
                 
-                //at the start of the game, only the first and last 2 rows are occupied
-                boolean isOccupied = y < 2 || y > 5;
-                
-                colArray.add(new Tile(null, isOccupied, coordinate, tileColor_IsWhite));
+                colArray.add(new Tile(null, false, coordinate, tileColor_IsWhite));
 
                 //tile colors alternate. E.g.: 'A1' = black; 'A2' = white
                 tileColor_IsWhite = !tileColor_IsWhite;   
@@ -43,6 +41,77 @@ public class ChessBoard
             
             board.add(colArray);
         }
+        
+        this.initPieces();
+    }
+    
+    private void initPieces()
+    {
+        //Pawns
+            //White
+            for (int col = 0; col < 8; ++col)
+            {
+                Tile tile = board.get(col).get(1);
+                tile.setChessPiece(new Pawn(true));
+            }
+            
+            //Black
+            for (int col = 0; col < 8; ++col)
+            {
+                Tile tile = board.get(col).get(6);
+                tile.setChessPiece(new Pawn(false));
+            }
+        
+        //Rooks
+            {
+                //White
+                board.get(0).get(0).setChessPiece(new Rook(true));
+                board.get(7).get(0).setChessPiece(new Rook(true));
+                
+                //Black
+                board.get(0).get(7).setChessPiece(new Rook(false));
+                board.get(7).get(7).setChessPiece(new Rook(false));
+            }
+            
+        //Knights
+            {
+                //White
+                board.get(1).get(0).setChessPiece(new Knight(true));
+                board.get(6).get(0).setChessPiece(new Knight(true));
+                
+                //Black
+                board.get(1).get(7).setChessPiece(new Knight(false));
+                board.get(6).get(7).setChessPiece(new Knight(false));
+            }
+            
+        //Bishops
+            {
+                //White
+                board.get(2).get(0).setChessPiece(new Bishop(true));
+                board.get(5).get(0).setChessPiece(new Bishop(true));
+                
+                //Black
+                board.get(2).get(7).setChessPiece(new Bishop(false));
+                board.get(5).get(7).setChessPiece(new Bishop(false));
+            }
+        
+        //Queens
+            {
+                //White
+                board.get(3).get(0).setChessPiece(new Queen(true));
+                
+                //Black
+                board.get(3).get(7).setChessPiece(new Queen(false));
+            }
+         
+        //Kings
+            {
+                //White
+                board.get(4).get(0).setChessPiece(new King(true));
+                
+                //Black
+                board.get(4).get(7).setChessPiece(new King(false));
+            }
     }
     
     public static ChessBoard getInstance()

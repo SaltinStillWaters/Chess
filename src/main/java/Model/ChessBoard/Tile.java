@@ -19,18 +19,18 @@ public class Tile
         this.coordinate = coordinate;
         this.isWhite = isWhite;
     }
-
     
     public void setChessPiece(ChessPiece chessPiece)
     {
         this.chessPiece = chessPiece;
+        this.isOccupied = true;
     }
 
-    public void setIsOccupied(boolean isOccupied)
+    public void removeChessPiece()
     {
-        this.isOccupied = isOccupied;
+        this.chessPiece = null;
+        this.isOccupied = false;
     }
-    
 
     public ChessPiece getChessPiece()
     {
