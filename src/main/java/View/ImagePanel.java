@@ -8,6 +8,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
+/**
+ * Extends javax.swing.JPanel.
+ * Used for creating panels with a bakground image.
+ * @author Salti
+ */
 public class ImagePanel extends JPanel
 {
     private BufferedImage backgroundImage;
@@ -34,7 +39,4 @@ public class ImagePanel extends JPanel
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-    
-    
-    
 }

@@ -1,0 +1,19 @@
+GIT COMMANDS:
+
+Notes: 
+    >   Before performing any git command/s, navigate to the project first.
+        E.g.: cd Documents/NetbeansProjects/Chess
+
+    >   '<something>' means you have to change that part accordingly.
+        E.g.: '<branch-name>' should be replaced by the name of the branch
+ 
+
+- List all local branches
+    > git branch
+
+- List all local and remote branches
+    > git branch -a
+
+- Deleting a branch locally
+    *Make sure you are not on the branch you want to delete
+    > git branch -d <branch-name>

@@ -3,12 +3,17 @@ package View;
 import Model.Config;
 import Model.Pieces.ChessPiece;
 import java.awt.Image;
-import java.io.IOException;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 
+/**
+ * View representation of the Model ChessPiece.
+ * It extends javax.swing.JLabel.
+ * Contains an ImageIcon that will act as the icon of the label
+ * @author Salti
+ */
 public class PieceLabel extends JLabel
 {
     private ImageIcon image;
@@ -25,6 +30,7 @@ public class PieceLabel extends JLabel
             
         } catch (Exception e)
         {
+            System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
         }
         

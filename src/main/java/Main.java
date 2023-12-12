@@ -1,5 +1,3 @@
-import Model.Pieces.Knight;
-import Model.Pieces.Pawn;
 import View.MainFrame;
 import javax.swing.SwingUtilities;
 
@@ -12,7 +10,6 @@ public class Main
         SwingUtilities.invokeLater(() -> 
         {
             new MainFrame();
-           
         });
     }
 }   
