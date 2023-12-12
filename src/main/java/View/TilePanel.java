@@ -1,5 +1,6 @@
 package View;
 
+import Control.ClickEvent;
 import Model.ChessBoard.Tile;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
@@ -35,6 +36,7 @@ public class TilePanel extends JPanel
         
         this.tile = tile;
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
+        this.addMouseListener(new ClickEvent());
     }
 
     /**
@@ -63,6 +65,9 @@ public class TilePanel extends JPanel
     {
         this.pieceLabel = pieceLabel;
         this.add(pieceLabel);
+        
+        this.revalidate();
+        this.repaint();
     }
     
     /**
