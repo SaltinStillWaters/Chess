@@ -1,9 +1,18 @@
 package Model;
 
-
+/**
+ * A set of constants that defines the particularities of the program
+ */
 public class Config 
 {
-    public final static int CHESSBOARD_SIZE;   //chess board dimension will be 'x by x'
+    /**
+     * Length and Width of the ChessBoard Frame
+     */
+    public final static int CHESSBOARD_SIZE;
+    
+    /**
+     * Length and width of the pieces
+     */
     public final static int PIECE_SIZE;
     
     static 

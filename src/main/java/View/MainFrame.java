@@ -3,18 +3,20 @@ package View;
 import Model.ChessBoard.ChessBoard;
 import Model.ChessBoard.Tile;
 import Model.Config;
-import Model.Pieces.Queen;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 
+/**
+ * Acts as the main frame of the program.
+ * It holds the entire process for playing a chess game
+ * @author Salti
+ */
 public class MainFrame extends JFrame
 {
-    private ArrayList<ArrayList<TilePanel>> tilePanelsArray;
+    private final ArrayList<ArrayList<TilePanel>> tilePanelsArray;
     
     public MainFrame()
     {

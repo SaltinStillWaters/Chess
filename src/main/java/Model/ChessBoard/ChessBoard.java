@@ -3,7 +3,10 @@ package Model.ChessBoard;
 import Model.Pieces.*;
 import java.util.ArrayList;
 
-
+/**
+ * A Singleton that represents a Chessboard.
+ * It holds information about every tile in an 8x8 board.
+ */
 public class ChessBoard 
 {
     private final ArrayList<ArrayList<Tile>> board;
@@ -123,7 +126,12 @@ public class ChessBoard
         return instance;
     }
     
-    
+    /**
+     * Returns a reference to a Tile, according to the col and row arguments
+     * @param col
+     * @param row
+     * @return 
+     */
     public Tile getTile(int col, int row)
     {
         return board.get(col).get(row);
