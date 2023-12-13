@@ -20,22 +20,37 @@ public class ClickEvent extends MouseAdapter implements MouseListener{
             
             //check if the currTile of the singleton is not null
             if(tilesingleton.getCurrTileClicked() == null){
+                
                 tilesingleton.setCurrTileClicked(clickedTilePanel);
+                System.out.println("Current Tile set");
+                
+                if(tilesingleton.getCurrTileClicked().getPieceLabel() == null){
+                   tilesingleton.setCurrTileClicked(null);
+                   System.out.println("Action Cancelled");
+                }
             } else{
                 tilesingleton.setDestTileClicked(clickedTilePanel);
+                System.out.println("Destination Tile set");
             }
             
-            //checks if there is a destination
-            if (tilesingleton.getDestTileClicked()!= null){
+            
+            
+            //checks if there is a destination and destination is not the current tile
+            if (tilesingleton.getDestTileClicked()!= null && tilesingleton.getDestTileClicked() != tilesingleton.getCurrTileClicked()){
                 // Get the PieceLabel from the current TilePanel
                 PieceLabel clickedPiece = tilesingleton.getCurrTileClicked().getPieceLabel();
                 if(clickedPiece != null){
                    tilesingleton.getCurrTileClicked().removePieceLabel();
                    tilesingleton.getDestTileClicked().setPieceLabel(clickedPiece);
                    // Reset the singleton's current and destination tiles after the move
+                   System.out.println("Piece moved");
                    tilesingleton.setCurrTileClicked(null);
                    tilesingleton.setDestTileClicked(null);
                 }
+            } else if (tilesingleton.getDestTileClicked() == tilesingleton.getCurrTileClicked()){
+                tilesingleton.setCurrTileClicked(null);
+                tilesingleton.setDestTileClicked(null);
+                System.out.println("Invalid move");
             }
         }
         

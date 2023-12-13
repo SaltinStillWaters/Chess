@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 /**
  * Extends javax.swing.JPanel.
- * Used for creating panels with a bakground image.
+ * Used for creating panels with a background image.
  * @author Salti
  */
 public class ImagePanel extends JPanel
