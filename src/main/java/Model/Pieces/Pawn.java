@@ -10,8 +10,11 @@ public class Pawn extends ChessPiece
     }
     
     @Override
-    public boolean checkMove(String currCoordinate, String destCoordinate)
+    public boolean checkMove(String currCoordinate, String destCoordinate) throws IllegalArgumentException
     {
+        this.checkCoordinate(currCoordinate);
+        this.checkCoordinate(destCoordinate);
+        
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
         
         int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
@@ -52,6 +55,4 @@ public class Pawn extends ChessPiece
         
         return isValid;
     }
-    
-    
 }
