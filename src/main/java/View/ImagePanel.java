@@ -1,10 +1,8 @@
 package View;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
@@ -15,15 +13,21 @@ import javax.swing.JPanel;
  */
 public class ImagePanel extends JPanel
 {
-    private BufferedImage backgroundImage;
+    private ImageIcon backgroundImage;
 
+    public ImagePanel()
+    {
+        super();
+    }
+    
     public ImagePanel(String imagePath)
     {
         try
         {
-            backgroundImage = ImageIO.read(new File(imagePath));
+            URL imageURL = getClass().getResource(imagePath);
+            backgroundImage = new ImageIcon(imageURL);
         } 
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -36,7 +40,41 @@ public class ImagePanel extends JPanel
         
         if (backgroundImage != null)
         {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+    
+    /**
+     * Sets the background image of the panel.
+     * @param imagePath The file path of the image relative to the /resources folder
+     */
+    public void setBackgroundImage(String imagePath)
+    {
+        try
+        {
+            URL imageURL = getClass().getResource(imagePath);
+            backgroundImage = new ImageIcon(imageURL);
+        } 
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        this.repaint();
+        this.revalidate();
+    }
+    
+    /**
+     * Removes the background image of the panel.
+     * Does nothing if the panel has no background image to begin with.
+     */
+    public void removeBackgroundImage()
+    {
+        if (this.backgroundImage != null)
+        {
+            this.backgroundImage = null;
+            this.repaint();
+            this.revalidate();
         }
     }
 }

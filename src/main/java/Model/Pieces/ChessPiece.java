@@ -42,6 +42,25 @@ public abstract class ChessPiece
      */
     public abstract boolean checkMove(String currCoordinate, String destCoordinate) throws IllegalArgumentException;  
     
+    
+    /**
+     * Checks whether a coordinate is valid.
+     * Throws an IllegalArgumentException if it is not.
+     * @param coordinate
+     * @throws IllegalArgumentException 
+     */
+    protected void checkCoordinate(String coordinate) throws IllegalArgumentException
+    {
+        boolean row = coordinate.charAt(1) >= '1' && coordinate.charAt(1) <= '8';
+      
+        boolean col = coordinate.charAt(0) >= 'A' && coordinate.charAt(0) <= 'H';
+        
+        if (! (row&& col))
+        {
+            throw new IllegalArgumentException("Argument: '" + coordinate + "' is not a valid coordinate\n");
+        }
+    }
+    
     public void move(String currCoordinate, String destCoordinate)
     {
         //code

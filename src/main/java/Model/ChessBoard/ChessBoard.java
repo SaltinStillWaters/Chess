@@ -13,7 +13,7 @@ public class ChessBoard
     private static ChessBoard instance;
 
     
-    public ChessBoard()
+    private ChessBoard()
     {
         board = new ArrayList<>();
       
@@ -128,9 +128,9 @@ public class ChessBoard
     
     /**
      * Returns a reference to a Tile, according to the col and row arguments
-     * @param col
-     * @param row
-     * @return 
+     * @param col Tile column (A-H)
+     * @param row Tile row (1-8)
+     * @return Returns tile of column 'col' and row 'row'
      */
     public Tile getTile(int col, int row)
     {

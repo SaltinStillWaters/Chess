@@ -1,5 +1,5 @@
-
 package Model.Pieces;
+
 
 public class Queen extends ChessPiece{
 
@@ -9,19 +9,25 @@ public class Queen extends ChessPiece{
     }
     
     @Override
-    public boolean checkMove(String currCoordinate, String destCoordinate) {
+    public boolean checkMove(String currCoordinate, String destCoordinate) throws IllegalArgumentException
+    {
+        this.checkCoordinate(currCoordinate);
+        this.checkCoordinate(destCoordinate);
+        
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
         int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
         
-        if(rowDiff == 0 && colDiff !=0){
+        if(rowDiff == 0 && colDiff !=0)
+        {
             return true;
-        } else if (colDiff == 0 && rowDiff !=0){
+        } 
+        else if (colDiff == 0 && rowDiff !=0)
+        {
             return true;
-        } else if (colDiff == rowDiff){
-            return true;
-        } else{
-            return false;
         }
-    }
-    
+        else 
+        {
+            return colDiff == rowDiff;
+        }
+    }   
 }
