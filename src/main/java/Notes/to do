@@ -16,3 +16,5 @@ mouseClicked(MouseEvent e)
 	get the second TilePanel clicked
 	set PieceLabel to TilePanel_2
 }
+
+- remove sout statements in Click Event Class

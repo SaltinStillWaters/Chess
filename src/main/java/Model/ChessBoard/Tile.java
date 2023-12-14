@@ -88,5 +88,9 @@ public class Tile
     {
         return isOccupied;
     }
+    
+    public String getCoordinate(){
+        return this.coordinate;
+    }
    
 }
