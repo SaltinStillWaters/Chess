@@ -1,3 +1,4 @@
+import Model.Model_Main;
 import View.MainFrame;
 import javax.swing.SwingUtilities;
 
@@ -9,7 +10,7 @@ public class Main
     {
         SwingUtilities.invokeLater(() -> 
         {
-            new MainFrame();
+            Model_Main.getInstance();
         });
     }
 }   

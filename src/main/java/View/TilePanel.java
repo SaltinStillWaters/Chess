@@ -1,6 +1,7 @@
 package View;
 
-import Control.ClickEvent;
+
+import Control.TilePanelClickEvent;
 import Model.ChessBoard.Tile;
 import java.awt.FlowLayout;
 
@@ -14,6 +15,7 @@ public class TilePanel extends ImagePanel
 {
     private final Tile tile;
     private PieceLabel pieceLabel;
+    private boolean isEmpty;
     
     /**
      * An IllegalArgumentException is thrown if null is passed as an argument
@@ -22,6 +24,8 @@ public class TilePanel extends ImagePanel
     public TilePanel(Tile tile)
     {
         super();
+        
+        this.isEmpty = true;
         
         try
         {
@@ -37,7 +41,7 @@ public class TilePanel extends ImagePanel
         
         this.tile = tile;
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        this.addMouseListener(new ClickEvent());
+        this.addMouseListener(new TilePanelClickEvent());
     }
 
     /**
@@ -64,6 +68,8 @@ public class TilePanel extends ImagePanel
      */
     public void setPieceLabel(PieceLabel pieceLabel)
     {
+        this.tile.setChessPiece(pieceLabel.getChessPiece());
+        
         if (this.pieceLabel != null)
         {
             this.remove(this.pieceLabel);
@@ -71,6 +77,8 @@ public class TilePanel extends ImagePanel
         
         this.pieceLabel = pieceLabel;
         this.add(pieceLabel);
+        
+        this.isEmpty = false;
         
         this.revalidate();
         this.repaint();
@@ -81,10 +89,13 @@ public class TilePanel extends ImagePanel
      */
     public void removePieceLabel()
     {
-       this.remove(pieceLabel);
-       
-       this.revalidate();
-       this.repaint();
+        this.tile.removeChessPiece();
+        this.remove(pieceLabel);
+
+        this.isEmpty = true;
+
+        this.revalidate();
+        this.repaint();
     }
     
     /**
@@ -101,5 +112,10 @@ public class TilePanel extends ImagePanel
     public void removeMarkAsSelected()
     {
         this.removeBackgroundImage();
+    }
+    
+    public boolean isEmpty()
+    {
+        return isEmpty;
     }
 }

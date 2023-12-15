@@ -16,10 +16,13 @@ import javax.swing.JLabel;
  */
 public class PieceLabel extends JLabel
 {
+    private final ChessPiece chessPiece;
     private ImageIcon image;
     
     public PieceLabel(ChessPiece chessPiece)
     { 
+        this.chessPiece = chessPiece;
+        
         try
         {
             URL imageURL = getClass().getResource("/Pieces/" + chessPiece.imagePath + ".png");
@@ -39,4 +42,8 @@ public class PieceLabel extends JLabel
         this.setVerticalAlignment(JLabel.CENTER);
     }
     
+    public ChessPiece getChessPiece()
+    {
+        return chessPiece;
+    }
 }

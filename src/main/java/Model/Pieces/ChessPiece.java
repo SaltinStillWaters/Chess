@@ -65,5 +65,10 @@ public abstract class ChessPiece
     {
         //code
     }
-            
+    
+    public boolean canCapture(ChessPiece piece)
+    {
+        //will return true if the 2 pieces are of different colors
+        return (this.isWhite ^ piece.isWhite);
+    }        
 }
