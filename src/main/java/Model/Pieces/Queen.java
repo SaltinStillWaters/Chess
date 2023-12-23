@@ -14,14 +14,14 @@ public class Queen extends ChessPiece{
         this.checkCoordinate(currCoordinate);
         this.checkCoordinate(destCoordinate);
         
-        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
-        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        int colDiff = Math.abs(currCoordinate.charAt(0) - destCoordinate.charAt(0));
+        int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
         
-        if(rowDiff == 0 && colDiff !=0)
+        if(rowDiff == 0 && colDiff != 0)
         {
             return true;
         } 
-        else if (colDiff == 0 && rowDiff !=0)
+        else if (colDiff == 0 && rowDiff != 0)
         {
             return true;
         }
@@ -30,4 +30,11 @@ public class Queen extends ChessPiece{
             return colDiff == rowDiff;
         }
     }   
+
+    @Override
+    protected boolean checkObstruction(String currCoordinate, String destCoordinate)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }

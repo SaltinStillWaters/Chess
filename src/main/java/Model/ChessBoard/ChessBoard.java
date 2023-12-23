@@ -136,4 +136,9 @@ public class ChessBoard
     {
         return board.get(col).get(row);
     }
+    
+    public Tile getTile(String coordinate)
+    {
+        return getTile(coordinate.charAt(0) - 'A', coordinate.charAt(1) - '1');
+    }
 }

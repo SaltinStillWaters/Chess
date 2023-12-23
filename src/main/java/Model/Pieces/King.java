@@ -17,8 +17,8 @@ public class King extends ChessPiece
         this.checkCoordinate(currCoordinate);
         this.checkCoordinate(destCoordinate);
         
-        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
-        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        int colDiff = Math.abs(currCoordinate.charAt(0) - destCoordinate.charAt(0));
+        int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
         
         if(rowDiff == 0 && colDiff == 1)
         {
@@ -32,6 +32,13 @@ public class King extends ChessPiece
         {
             return (colDiff == 1 && rowDiff == 1);
         }
+    }
+
+    @Override
+    protected boolean checkObstruction(String currCoordinate, String destCoordinate)
+    {
+        //King does not need to check obstruction
+        return true;
     }
     
     /**
