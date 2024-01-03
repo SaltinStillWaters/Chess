@@ -18,7 +18,6 @@ public class Pawn extends ChessPiece
         this.checkCoordinate(destCoordinate);
         
         int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
-        
         int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
         
         
@@ -39,6 +38,11 @@ public class Pawn extends ChessPiece
             }
         }
         
+        if (!isValid)
+        {
+            isValid = checkCapture(currCoordinate, destCoordinate);
+        }
+        
         //backward move
         if (this.isWhite)
         {
@@ -55,11 +59,9 @@ public class Pawn extends ChessPiece
             }
         }
         
-        System.out.println(isValid);
         if (isValid)
         {
             isValid = checkObstruction(currCoordinate, destCoordinate);
-            System.out.println(isValid);
         }
         
         return isValid;
@@ -70,26 +72,37 @@ public class Pawn extends ChessPiece
     {
         int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
         
-        //possible early return
         if (Math.abs(rowDiff) == 1)
         {
             return true;
         }
         
-        StringBuilder coordinateToCheck = new StringBuilder(currCoordinate);
-        char newRow;
-        if (rowDiff == 2)
-        {
-            newRow = (char) (currCoordinate.charAt(1) + 1);
-        }
-        else
-        {
-            newRow = (char) (currCoordinate.charAt(1) - 1);
-        }
         
-        coordinateToCheck.setCharAt(1, newRow);
+        StringBuilder coordinateToCheck = new StringBuilder(currCoordinate);
+        
+        char rowCoordinate = (char) (currCoordinate.charAt(1) + rowDiff / Math.abs(rowDiff));
+        
+        coordinateToCheck.setCharAt(1, rowCoordinate);
         
         //returns true if tile is not occupied
         return ! (ChessBoard.getInstance().getTile(coordinateToCheck.toString()).getIsOccupied());
+    }
+    
+    private boolean checkCapture(String currCoordinate, String destCoordinate)
+    {
+        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
+        int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
+        
+        boolean canCapture = false;
+        if (Math.abs(colDiff) == 1 && Math.abs(rowDiff) == 1)
+        {
+            ChessBoard chessBoard = ChessBoard.getInstance();
+            if (chessBoard.getTile(destCoordinate).getIsOccupied())
+            {
+                canCapture = true;
+            }
+        }
+        
+        return canCapture;
     }
 }

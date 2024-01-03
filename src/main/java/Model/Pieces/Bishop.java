@@ -19,7 +19,7 @@ public class Bishop extends ChessPiece
         int colDiff = Math.abs(currCoordinate.charAt(0) - destCoordinate.charAt(0));
         int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
         
-        boolean isValid = colDiff == rowDiff; 
+        boolean isValid = (colDiff == rowDiff); 
         
         if (isValid)
         {
