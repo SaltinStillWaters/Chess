@@ -14,9 +14,13 @@ public class Bishop extends ChessPiece
         this.checkCoordinate(currCoordinate);
         this.checkCoordinate(destCoordinate);
         
-        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
-        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        int colDiff = Math.abs(currCoordinate.charAt(0) - destCoordinate.charAt(0));
+        int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
+        
+        
         
         return colDiff == rowDiff; 
+        
+        
     }
 }

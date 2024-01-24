@@ -17,7 +17,7 @@ public class TilePanelClickEvent extends MouseAdapter implements MouseListener
 {
 
     @Override
-    public void mouseClicked(MouseEvent e) 
+    public void mousePressed(MouseEvent e) 
     {
         Model_Main model = Model_Main.getInstance();
         TilePanel clickedTile = (TilePanel) e.getSource();
@@ -121,7 +121,7 @@ public class TilePanelClickEvent extends MouseAdapter implements MouseListener
     
     
     @Override
-    public void mousePressed(MouseEvent e) 
+    public void mouseClicked(MouseEvent e) 
     {
        
     }
