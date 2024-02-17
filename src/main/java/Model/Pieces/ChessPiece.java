@@ -42,6 +42,7 @@ public abstract class ChessPiece
      */
     public abstract boolean checkMove(String currCoordinate, String destCoordinate) throws IllegalArgumentException;  
     
+    protected abstract boolean checkObstruction(String currCoordinate, String destCoordinate);
     
     /**
      * Checks whether a coordinate is valid.

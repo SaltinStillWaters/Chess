@@ -31,4 +31,12 @@ public class Knight extends ChessPiece
         
         return isValid;
     }
+
+    @Override
+    protected boolean checkObstruction(String currCoordinate, String destCoordinate)
+    {
+        //Knight does not need to check obstruction
+        return true;
+    }
+    
 }
