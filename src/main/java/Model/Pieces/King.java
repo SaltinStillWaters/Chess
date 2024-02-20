@@ -63,11 +63,11 @@ public class King extends ChessPiece
         
         
         //check rook move
-        if ()
         if (!this.hasMoved && isValid)
         {
             this.hasMoved = true;
         }
+        return isCastling;
     }
 
     @Override
