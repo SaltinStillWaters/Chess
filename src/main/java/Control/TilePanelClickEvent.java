@@ -2,11 +2,13 @@ package Control;
 
 
 import Model.Model_Main;
+import Model.ChessBoard.ChessBoard;
 import Model.Pieces.ChessPiece;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import Model.Pieces.King;
+import Model.Pieces.Rook;
 
 /**
  * Handles TilePanel click events where the user performs moves
@@ -67,18 +69,42 @@ public class TilePanelClickEvent extends MouseAdapter
             return;
         }
         
-        
-            
-        if (model.hasDestTile())
+        if (!model.hasDestTile())
         {
-            ChessPiece currPiece = model.getCurrTileClicked().getTile().getChessPiece();
-            ChessPiece destPiece = clickedTile.getTile().getChessPiece();
-            
-            //check if move is valid
-                String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
-                String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
+            return;
+        }
 
-                boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
+        ChessPiece currPiece = model.getCurrTileClicked().getTile().getChessPiece();
+        ChessPiece destPiece = clickedTile.getTile().getChessPiece();
+        
+        String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
+        String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
+        
+        int isCastling = checkCastling(currPiece, destPiece, currCoordinate, destCoordinate);
+
+        if (isCastling > 0)
+        {
+            switch (isCastling) {
+                case 1:
+                    currCoordinate
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
             
             //check if piece is capturing its own side (white piece capturing another white piece)
                 boolean canCapture = true;
@@ -97,10 +123,10 @@ public class TilePanelClickEvent extends MouseAdapter
                 
                 model.getMainFrameInstance().flipBoard();
                 model.switchTurn();
-            }
-            
-            postMoveCleanUp();
+            }    
         }
+
+        postMoveCleanUp();
     }   
 
     /**
@@ -119,9 +145,61 @@ public class TilePanelClickEvent extends MouseAdapter
         model.clearDestAndCurrTiles();
     }
     
-    private boolean checkCastling(ChessPiece currPiece, ChessPiece destPiece, String currCoordinate, String destCoordiante)
+    private int checkCastling(ChessPiece currPiece, ChessPiece destPiece, String currCoordinate, String destCoordinate)
     {
+        if (destPiece != null || currPiece.name != "King" || currPiece.checkMove(currCoordinate, destCoordinate))
+        {
+            return 0;
+        }
+
+        King king = (King) currPiece;
+        if (king.getHasMoved())
+        {
+            return 0;
+        }
         
+        ChessPiece possibleRook = null;
+        ChessBoard board = ChessBoard.getInstance();
+        int result = 0;
+        if (king.isWhite) 
+        {
+            if (destCoordinate.equals("G1")) 
+            {
+                possibleRook = board.getTile("G1").getChessPiece();
+                result = 2;
+            } 
+            else if (destCoordinate.equals("C1") || destCoordinate.equals("B1")) 
+            {
+                possibleRook = board.getTile("A1").getChessPiece();
+                result = 1;
+            }
+        } 
+        else 
+        {
+            if (destCoordinate.equals("G8")) 
+            {
+                possibleRook = board.getTile("G8").getChessPiece();
+                result = 4;
+            } 
+            else if (destCoordinate.equals("C8") || destCoordinate.equals("B8")) 
+            {
+                possibleRook = board.getTile("A8").getChessPiece();
+                result = 3;
+            }
+        }
+
+        if (possibleRook == null || possibleRook.name != "Rook" || possibleRook.isWhite != king.isWhite)
+        {
+            return 0;
+        }
+
+        Rook rook = (Rook) possibleRook;
+        if (rook.getHasMoved())
+        {
+            return 0;
+        }
+
+        return result;
     }
     
     @Override

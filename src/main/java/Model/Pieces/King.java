@@ -37,33 +37,6 @@ public class King extends ChessPiece
             isValid = (colDiff == 1 && rowDiff == 1);
         }
         
-        
-        //castling
-        boolean isCastling = false;
-        if (!isValid && !this.hasMoved)
-        {
-            if (this.isWhite)
-            {
-                if (destCoordinate.equals("G1"))
-                {
-                }
-                else if (destCoordinate.equals("C1") || destCoordinate.equals("B1"))
-                {
-                    
-                }
-            }
-            else
-            {
-                if (destCoordinate.equals("G8") || destCoordinate.equals("C8") || destCoordinate.equals("B8"))
-                {
-                    isCastling = true;
-                }
-            }
-        }
-        
-        
-        //check rook move
-        //if ()
         if (!this.hasMoved && isValid)
         {
             this.hasMoved = true;
@@ -76,5 +49,15 @@ public class King extends ChessPiece
     {
         //King does not need to check obstruction
         return true;
+    }
+
+    public boolean getHasMoved()
+    {
+        return hasMoved;
+    }
+
+    public void setHasMoved()
+    {
+        this.hasMoved = true;
     }
 }
