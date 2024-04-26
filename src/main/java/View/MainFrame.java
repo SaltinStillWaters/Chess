@@ -1,6 +1,9 @@
 package View;
 
 import Model.Config;
+import Model.Model_Main;
+import Model.ChessBoard.ChessBoard;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -19,37 +22,35 @@ import javax.swing.KeyStroke;
  */
 public class MainFrame extends JFrame
 {
-    ChessBoardPanel chessBoard_panel;
-    ArrayList<ArrayList<TilePanel>> tilePanelsArray;
-    private boolean isWhitePOV;
+    ImagePanel boardImagePanel;
+    public ArrayList<ArrayList<TilePanel>> tilePanels;
     
     public MainFrame()
     {
         this.setSize(Config.CHESSBOARD_SIZE, Config.CHESSBOARD_SIZE);
         this.setLocationRelativeTo(null);
         
-        ChessBoardPanel chessBoard_panel = ChessBoardPanel.getInstance();
-        tilePanelsArray = chessBoard_panel.getTilePanelsArray();
-        this.isWhitePOV = true;
+        ChessBoardPanel chessBoardPanel = ChessBoardPanel.getInstance();
+        boardImagePanel = chessBoardPanel.getBoardPanel();
+        tilePanels = chessBoardPanel.getTilePanelsArray();
         
-        this.add(chessBoard_panel);
+        this.add(boardImagePanel);
         
         
-        //Flip board when 'R' is pressed
-            InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-            ActionMap actionMap = this.getRootPane().getActionMap();
+        // Flip board when 'R' is pressed
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = this.getRootPane().getActionMap();
 
-            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0), "flipBoardAction");
-            actionMap.put("flipBoardAction", new AbstractAction() 
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_R, 0), "flipBoardAction");
+        actionMap.put("flipBoardAction", new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
             {
-                @Override
-                public void actionPerformed(ActionEvent e) 
-                {
-                    flipBoard();
-                }
-            });
-        
-        
+                flipBoard();
+            }
+        });
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.pack();
@@ -63,20 +64,19 @@ public class MainFrame extends JFrame
      */
     public void flipBoard()
     { 
-        chessBoard_panel.removeAll();
+        boardImagePanel.removeAll();
         
-        if (isWhitePOV)
+        if (Model_Main.getInstance().getIsWhiteToTurn())
         {
             for (int row = 7; row >= 0; --row)
             {
                 for (int col = 7; col >= 0; --col)
                 {
-                    chessBoard_panel.add(tilePanelsArray.get(row).get(col));
+                    boardImagePanel.add(tilePanels.get(row).get(col));
                 }
             }
             
-            chessBoard_panel.setBackgroundImage("/ChessBoard_BlackPOV.png");
-            isWhitePOV = false;
+            boardImagePanel.setBackgroundImage("/ChessBoard_BlackPOV.png");
         }
         else
         {
@@ -84,13 +84,17 @@ public class MainFrame extends JFrame
             {
                 for (int col = 0; col < 8; ++col)
                 {
-                    chessBoard_panel.add(tilePanelsArray.get(row).get(col));
+                    boardImagePanel.add(tilePanels.get(row).get(col));
                 }
             }
             
-            chessBoard_panel.setBackgroundImage("/ChessBoard_WhitePOV.png");
-            isWhitePOV = true;
+            boardImagePanel.setBackgroundImage("/ChessBoard_WhitePOV.png");
         }
+        
+        ChessBoard board = ChessBoard.getInstance();
+        ArrayList<ArrayList<TilePanel>> tilePanels = Model_Main.getInstance().getMainFrameInstance().tilePanels;
+        System.out.println(board.getTile("A1").getChessPiece());
+        System.out.println(tilePanels.get(0).get(0).getPieceLabel().getChessPiece());
         
         this.revalidate();
         this.repaint();

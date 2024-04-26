@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import Model.Config;
 import Model.ChessBoard.ChessBoard;
 import Model.ChessBoard.Tile;
 
@@ -15,42 +16,37 @@ public class ChessBoardPanel extends ImagePanel
 
     public ChessBoardPanel()
     {
-        //COMPONENTS
-            //Chess board
-            chessBoard_panel = new ImagePanel("/ChessBoard_WhitePOV.png");
-            chessBoard_panel.setLayout(new GridLayout(8, 8));
-            chessBoard_panel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+        chessBoard_panel = new ImagePanel("/ChessBoard_WhitePOV.png");
+        chessBoard_panel.setLayout(new GridLayout(8, 8));
+        chessBoard_panel.setPreferredSize(new Dimension(Config.CHESSBOARD_SIZE, Config.CHESSBOARD_SIZE));
 
-            //Tiles
+        this.tilePanelsArray = new ArrayList<>();
+        ChessBoard chessBoard = ChessBoard.getInstance();
+
+        for (int row = 7; row >= 0; --row)
         {
-            this.tilePanelsArray = new ArrayList<>();
-            ChessBoard chessBoard = ChessBoard.getInstance();
-            
-            for (int row = 7; row >= 0; --row)
+            ArrayList<TilePanel> tilePanelsTemp = new ArrayList<>();
+
+            for (int col = 0; col < 8; ++col)
             {
-                ArrayList<TilePanel> tilePanelsTemp = new ArrayList<>();
-                
-                for (int col = 0; col < 8; ++col)
+                Tile tile = chessBoard.getTile(col, row);
+
+                TilePanel tilePanel = new TilePanel(tile);
+                tilePanel.setOpaque(false);
+
+                // add piece if tile is occupied
+                if (tile.getIsOccupied())
                 {
-                    Tile tile = chessBoard.getTile(col, row);
-                    
-                    TilePanel tilePanel = new TilePanel(tile);
-                    tilePanel.setOpaque(false);
-                    
-                    //add piece if tile is occupied
-                    if (tile.getIsOccupied())
-                    {
-                        PieceLabel pieceLabel = new PieceLabel(tile.getChessPiece());
-                        
-                        tilePanel.setPieceLabel(pieceLabel);
-                    }
-                    
-                    chessBoard_panel.add(tilePanel);
-                    tilePanelsTemp.add(tilePanel);
+                    PieceLabel pieceLabel = new PieceLabel(tile.getChessPiece());
+
+                    tilePanel.setPieceLabel(pieceLabel);
                 }
-                
-                this.tilePanelsArray.add(tilePanelsTemp);
+
+                chessBoard_panel.add(tilePanel);
+                tilePanelsTemp.add(tilePanel);
             }
+
+            this.tilePanelsArray.add(tilePanelsTemp);
         }
     }
 
@@ -77,5 +73,10 @@ public class ChessBoardPanel extends ImagePanel
     public TilePanel getTilePanel(String coordinate)
     {
         return getTilePanel(coordinate.charAt(0) - 'A', coordinate.charAt(1) - '1');
+    }
+
+    public ImagePanel getBoardPanel()
+    {
+        return chessBoard_panel;
     }
 }

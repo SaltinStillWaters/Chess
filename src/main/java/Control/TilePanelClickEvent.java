@@ -86,6 +86,11 @@ public class TilePanelClickEvent extends MouseAdapter
         if (isCastling > 0)
         {
             ChessBoardPanel viewBoard = ChessBoardPanel.getInstance();
+         
+            if (!model.getIsWhiteToTurn())
+            {
+                model.getMainFrameInstance().flipBoard();
+            }
 
             switch (isCastling) 
             {
@@ -121,6 +126,10 @@ public class TilePanelClickEvent extends MouseAdapter
                     break;
             }
 
+            if (!model.getIsWhiteToTurn())
+            {
+                model.getMainFrameInstance().flipBoard();
+            }
             
         }
         else
