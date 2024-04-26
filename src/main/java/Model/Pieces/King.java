@@ -1,7 +1,5 @@
 package Model.Pieces;
 
-import Model.ChessBoard.ChessBoard;
-
 
 public class King extends ChessPiece
 {

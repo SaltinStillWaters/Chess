@@ -4,6 +4,7 @@ package Control;
 import Model.Model_Main;
 import Model.ChessBoard.ChessBoard;
 import Model.Pieces.ChessPiece;
+import View.ChessBoardPanel;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -84,23 +85,43 @@ public class TilePanelClickEvent extends MouseAdapter
 
         if (isCastling > 0)
         {
-            switch (isCastling) {
+            ChessBoardPanel viewBoard = ChessBoardPanel.getInstance();
+
+            switch (isCastling) 
+            {
                 case 1:
-                    currCoordinate
+                    viewBoard.getTilePanel("C1").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
+                    model.getCurrTileClicked().removePieceLabel();
+
+                    viewBoard.getTilePanel("D1").setPieceLabel(viewBoard.getTilePanel("A1").getPieceLabel());
+                    viewBoard.getTilePanel("A1").removePieceLabel();
                     break;
                 case 2:
-                    
+                    viewBoard.getTilePanel("G1").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
+                    model.getCurrTileClicked().removePieceLabel();
+
+                    viewBoard.getTilePanel("F1").setPieceLabel(viewBoard.getTilePanel("H1").getPieceLabel());
+                    viewBoard.getTilePanel("H1").removePieceLabel();
                     break;
                 case 3:
-                    
+                    viewBoard.getTilePanel("C8").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
+                    model.getCurrTileClicked().removePieceLabel();
+
+                    viewBoard.getTilePanel("D8").setPieceLabel(viewBoard.getTilePanel("A8").getPieceLabel());
+                    viewBoard.getTilePanel("A8").removePieceLabel();
                     break;
                 case 4:
-                    
+                    viewBoard.getTilePanel("G8").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
+                    model.getCurrTileClicked().removePieceLabel();
+
+                    viewBoard.getTilePanel("F8").setPieceLabel(viewBoard.getTilePanel("H8").getPieceLabel());
+                    viewBoard.getTilePanel("H8").removePieceLabel();
                     break;
-            
                 default:
                     break;
             }
+
+            
         }
         else
         {
