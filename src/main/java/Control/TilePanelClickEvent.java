@@ -6,14 +6,13 @@ import Model.Pieces.ChessPiece;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 
 /**
  * Handles TilePanel click events where the user performs moves
  * @author Salti
  */
-public class TilePanelClickEvent extends MouseAdapter implements MouseListener
+public class TilePanelClickEvent extends MouseAdapter
 {
 
     @Override
@@ -87,6 +86,7 @@ public class TilePanelClickEvent extends MouseAdapter implements MouseListener
                 {
                     canCapture = currPiece.canCapture(destPiece);
                 }
+                //if destPiece = null, then destTile has no piece; therefore no need to check if you can capture
             
             //Execute move
             if (validMove && canCapture)
@@ -119,6 +119,10 @@ public class TilePanelClickEvent extends MouseAdapter implements MouseListener
         model.clearDestAndCurrTiles();
     }
     
+    private boolean checkCastling(ChessPiece currPiece, ChessPiece destPiece, String currCoordinate, String destCoordiante)
+    {
+        
+    }
     
     @Override
     public void mouseClicked(MouseEvent e) 

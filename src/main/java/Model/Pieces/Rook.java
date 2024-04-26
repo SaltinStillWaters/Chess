@@ -85,7 +85,7 @@ public class Rook extends ChessPiece
     }
     
     /**
-     * Marks that the King has moved.
+     * Marks that the Rook has moved.
      */
     public void setHasMovedToTrue()
     {
