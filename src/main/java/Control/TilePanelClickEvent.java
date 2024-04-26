@@ -6,14 +6,13 @@ import Model.Pieces.ChessPiece;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 
 /**
  * Handles TilePanel click events where the user performs moves
  * @author Salti
  */
-public class TilePanelClickEvent extends MouseAdapter implements MouseListener
+public class TilePanelClickEvent extends MouseAdapter
 {
 
     @Override
