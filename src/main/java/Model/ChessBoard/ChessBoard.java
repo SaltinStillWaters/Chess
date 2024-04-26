@@ -17,20 +17,20 @@ public class ChessBoard
     {
         board = new ArrayList<>();
       
-        //tile creation starts at 'A1', which is black
-        boolean tileColor_IsWhite = false;
+        //tile creation starts at 'H8', which is black
+        boolean tileColor_IsWhite = true;
         
-        for (int x = 0; x < 8; ++x) //collumns
+        for (int x = 0; x < 8; ++x) 
         {
-            ArrayList<Tile> colArray = new ArrayList<>();
+            ArrayList<Tile> rows = new ArrayList<>();
             
-            String col = Character.toString((char) ('A' + x));
+            String row = Character.toString((char) ('8' - x));
             
-            for (int y = 0; y < 8; ++y) //rows
+            for (int y = 0; y < 8; ++y)
             {
-                String coordinate = col + Character.toString((char) ('1' + y));
+                String coordinate =  Character.toString((char) ('A' + y)) + row;
                 
-                colArray.add(new Tile(null, false, coordinate, tileColor_IsWhite));
+                rows.add(new Tile(null, false, coordinate, tileColor_IsWhite));
 
                 //tile colors alternate. E.g.: 'A1' = black; 'A2' = white
                 tileColor_IsWhite = !tileColor_IsWhite;   
@@ -42,7 +42,7 @@ public class ChessBoard
             tileColor_IsWhite = !tileColor_IsWhite;
             
             
-            board.add(colArray);
+            board.add(rows);
         }
         
         this.initPieces();
@@ -54,66 +54,66 @@ public class ChessBoard
             //White
             for (int col = 0; col < 8; ++col)
             {
-                Tile tile = board.get(col).get(1);
-                tile.setChessPiece(new Pawn(true));
+                Tile tile = board.get(1).get(col);
+                tile.setChessPiece(new Pawn(false));
             }
             
             //Black
             for (int col = 0; col < 8; ++col)
             {
-                Tile tile = board.get(col).get(6);
-                tile.setChessPiece(new Pawn(false));
+                Tile tile = board.get(6).get(col);
+                tile.setChessPiece(new Pawn(true));
             }
         
         //Rooks
             {
                 //White
-                board.get(0).get(0).setChessPiece(new Rook(true));
-                board.get(7).get(0).setChessPiece(new Rook(true));
+                board.get(0).get(0).setChessPiece(new Rook(false));
+                board.get(0).get(7).setChessPiece(new Rook(false));
                 
                 //Black
-                board.get(0).get(7).setChessPiece(new Rook(false));
-                board.get(7).get(7).setChessPiece(new Rook(false));
+                board.get(7).get(7).setChessPiece(new Rook(true));
+                board.get(7).get(0).setChessPiece(new Rook(true));
             }
             
         //Knights
             {
                 //White
-                board.get(1).get(0).setChessPiece(new Knight(true));
-                board.get(6).get(0).setChessPiece(new Knight(true));
+                board.get(0).get(1).setChessPiece(new Knight(false));
+                board.get(0).get(6).setChessPiece(new Knight(false));
                 
                 //Black
-                board.get(1).get(7).setChessPiece(new Knight(false));
-                board.get(6).get(7).setChessPiece(new Knight(false));
+                board.get(7).get(1).setChessPiece(new Knight(true));
+                board.get(7).get(6).setChessPiece(new Knight(true));
             }
             
         //Bishops
             {
                 //White
-                board.get(2).get(0).setChessPiece(new Bishop(true));
-                board.get(5).get(0).setChessPiece(new Bishop(true));
+                board.get(0).get(2).setChessPiece(new Bishop(false));
+                board.get(0).get(5).setChessPiece(new Bishop(false));
                 
                 //Black
-                board.get(2).get(7).setChessPiece(new Bishop(false));
-                board.get(5).get(7).setChessPiece(new Bishop(false));
+                board.get(7).get(2).setChessPiece(new Bishop(true));
+                board.get(7).get(5).setChessPiece(new Bishop(true));
             }
         
         //Queens
             {
                 //White
-                board.get(3).get(0).setChessPiece(new Queen(true));
+                board.get(0).get(3).setChessPiece(new Queen(false));
                 
                 //Black
-                board.get(3).get(7).setChessPiece(new Queen(false));
+                board.get(7).get(3).setChessPiece(new Queen(true));
             }
          
         //Kings
             {
                 //White
-                board.get(4).get(0).setChessPiece(new King(true));
+                board.get(0).get(4).setChessPiece(new King(false));
                 
                 //Black
-                board.get(4).get(7).setChessPiece(new King(false));
+                board.get(7).get(4).setChessPiece(new King(true));
             }
     }
     
@@ -132,13 +132,13 @@ public class ChessBoard
      * @param row Tile row (1-8)
      * @return Returns tile of column 'col' and row 'row'
      */
-    public Tile getTile(int col, int row)
+    public Tile getTile(int row, int col)
     {
-        return board.get(col).get(row);
+        return board.get(row).get(col);
     }
     
     public Tile getTile(String coordinate)
     {
-        return getTile(coordinate.charAt(0) - 'A', coordinate.charAt(1) - '1');
+        return getTile(coordinate.charAt(1) - '1', coordinate.charAt(0) - 'A');
     }
 }

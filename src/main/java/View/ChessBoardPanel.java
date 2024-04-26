@@ -23,11 +23,11 @@ public class ChessBoardPanel extends ImagePanel
         this.tilePanelsArray = new ArrayList<>();
         ChessBoard chessBoard = ChessBoard.getInstance();
 
-        for (int row = 7; row >= 0; --row)
+        for (int col = 0; col < 8; ++col)
         {
             ArrayList<TilePanel> tilePanelsTemp = new ArrayList<>();
 
-            for (int col = 0; col < 8; ++col)
+            for (int row = 0; row < 8; ++row)
             {
                 Tile tile = chessBoard.getTile(col, row);
 
@@ -65,14 +65,14 @@ public class ChessBoardPanel extends ImagePanel
         return tilePanelsArray;
     } 
 
-    public TilePanel getTilePanel(int col, int row)
+    public TilePanel getTilePanel(int row, int col)
     {
-        return tilePanelsArray.get(col).get(row);
+        return tilePanelsArray.get(row).get(col);
     }
     
     public TilePanel getTilePanel(String coordinate)
     {
-        return getTilePanel(coordinate.charAt(0) - 'A', coordinate.charAt(1) - '1');
+        return getTilePanel(coordinate.charAt(1) - '1', coordinate.charAt(0) - 'A');
     }
 
     public ImagePanel getBoardPanel()
