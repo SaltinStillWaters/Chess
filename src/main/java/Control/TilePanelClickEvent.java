@@ -1,6 +1,7 @@
 package Control;
 
 
+import Model.Config;
 import Model.Model_Main;
 import Model.ChessBoard.ChessBoard;
 import Model.Pieces.ChessPiece;
@@ -101,12 +102,14 @@ public class TilePanelClickEvent extends MouseAdapter
                 clickedTile.setPieceLabel(currTile.getPieceLabel());
                 currTile.removePieceLabel();
                 
-                //model.getMainFrameInstance().flipBoard();
+                if (Config.AUTO_FLIP_BOARD)
+                {
+                    model.getMainFrameInstance().flipBoard();
+                }
+                
                 model.switchTurn();
             }    
         }
-
-        ChessBoard board = ChessBoard.getInstance();
         postMoveCleanUp();
     }   
 

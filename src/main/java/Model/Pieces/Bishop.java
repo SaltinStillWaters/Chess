@@ -39,7 +39,6 @@ public class Bishop extends ChessPiece
         int rowSign = rowDiff / Math.abs(rowDiff);
         
         ChessBoard chessBoard = ChessBoard.getInstance();
-        
         boolean isObstructed = false;
         for (int x = 1; x < loopCounter; ++x)
         {

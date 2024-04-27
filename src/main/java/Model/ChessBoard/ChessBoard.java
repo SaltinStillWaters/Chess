@@ -54,7 +54,7 @@ public class ChessBoard
         {
             for (int y = 0; y < 8; ++y)
             {
-                System.out.print(board.get(x).get(y) + "    ");
+                System.out.print(board.get(x).get(y).getIsOccupied() + "    ");
             }
             System.out.println();
         }
@@ -151,6 +151,6 @@ public class ChessBoard
     
     public Tile getTile(String coordinate)
     {
-        return getTile(coordinate.charAt(1) - '1', coordinate.charAt(0) - 'A');
+        return getTile('8' - coordinate.charAt(1), coordinate.charAt(0) - 'A');
     }
 }
