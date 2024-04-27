@@ -5,7 +5,6 @@ import Model.Config;
 import Model.Model_Main;
 import Model.ChessBoard.ChessBoard;
 import Model.Pieces.ChessPiece;
-import View.ChessBoardPanel;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -83,32 +82,30 @@ public class TilePanelClickEvent extends MouseAdapter
         String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
         
         
-            
-        
+        boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
+        // check if piece is capturing its own side (white piece capturing another white
+        // piece)
+        boolean canCapture = true;
+        if (destPiece != null)
         {
-            boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
-            //check if piece is capturing its own side (white piece capturing another white piece)
-                boolean canCapture = true;
-                if (destPiece != null)
-                {
-                    canCapture = currPiece.canCapture(destPiece);
-                }
-                //if destPiece = null, then destTile has no piece; therefore no need to check if you can capture
+            canCapture = currPiece.canCapture(destPiece);
+        }
+        // if destPiece = null, then destTile has no piece; therefore no need to check
+        // if you can capture
 
-            //Execute move
-            if (validMove && canCapture)
+        // Execute move
+        if (validMove && canCapture)
+        {
+            TilePanel currTile = model.getCurrTileClicked();
+            clickedTile.setPieceLabel(currTile.getPieceLabel());
+            currTile.removePieceLabel();
+
+            if (Config.AUTO_FLIP_BOARD)
             {
-                TilePanel currTile = model.getCurrTileClicked();
-                clickedTile.setPieceLabel(currTile.getPieceLabel());
-                currTile.removePieceLabel();
-                
-                if (Config.AUTO_FLIP_BOARD)
-                {
-                    model.getMainFrameInstance().flipBoard();
-                }
-                
-                model.switchTurn();
-            }    
+                model.getMainFrameInstance().flipBoard();
+            }
+
+            model.switchTurn();
         }
         postMoveCleanUp();
     }   

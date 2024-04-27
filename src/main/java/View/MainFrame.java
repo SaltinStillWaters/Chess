@@ -2,8 +2,6 @@ package View;
 
 import Model.Config;
 import Model.Model_Main;
-import Model.ChessBoard.ChessBoard;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
