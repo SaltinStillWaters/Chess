@@ -64,6 +64,7 @@ public class TilePanel extends ImagePanel
     
     /**
      * Adds a PieceLabel component to the Panel
+     * ands updates the the piece member of its associated Tile
      * @param pieceLabel The pieceLabel that will be placed inside the TilePanel
      */
     public void setPieceLabel(PieceLabel pieceLabel)

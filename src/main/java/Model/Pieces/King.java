@@ -17,36 +17,44 @@ public class King extends ChessPiece
         this.checkCoordinate(currCoordinate);
         this.checkCoordinate(destCoordinate);
         
-        int colDiff = currCoordinate.charAt(0) - destCoordinate.charAt(0);
-        int rowDiff = currCoordinate.charAt(1) - destCoordinate.charAt(1);
+        int colDiff = Math.abs(currCoordinate.charAt(0) - destCoordinate.charAt(0));
+        int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
+        
+        boolean isValid;
         
         if(rowDiff == 0 && colDiff == 1)
         {
-            return true;
+            isValid = true;
         } 
         else if (colDiff == 0 && rowDiff == 1)
         {
-            return true;
+            isValid = true;
         } 
         else    
         {
-            return (colDiff == 1 && rowDiff == 1);
+            isValid = (colDiff == 1 && rowDiff == 1);
         }
+        
+        if (!this.hasMoved && isValid)
+        {
+            this.hasMoved = true;
+        }
+        return isValid;
     }
-    
-    /**
-     * Returns a boolean whether or not the King has moved.
-     * @return 
-     */
+
+    @Override
+    protected boolean checkObstruction(String currCoordinate, String destCoordinate)
+    {
+        //King does not need to check obstruction
+        return true;
+    }
+
     public boolean getHasMoved()
     {
-        return this.hasMoved;
+        return hasMoved;
     }
-    
-    /**
-     * Marks that the King has moved.
-     */
-    public void setHasMovedToTrue()
+
+    public void setHasMoved()
     {
         this.hasMoved = true;
     }

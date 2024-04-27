@@ -93,4 +93,11 @@ public class Tile
         return this.coordinate;
     }
    
+    @Override
+    public String toString() 
+    {
+        String str = this.isOccupied ? "1" : "0";
+
+        return str;
+    }
 }

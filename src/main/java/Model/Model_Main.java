@@ -88,7 +88,4 @@ public class Model_Main
         
         return instance;
     }
-    
-    
-    
 }
