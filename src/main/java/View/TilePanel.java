@@ -15,7 +15,6 @@ public class TilePanel extends ImagePanel
 {
     private final Tile tile;
     private PieceLabel pieceLabel;
-    private boolean isEmpty;
     
     /**
      * An IllegalArgumentException is thrown if null is passed as an argument
@@ -24,8 +23,6 @@ public class TilePanel extends ImagePanel
     public TilePanel(Tile tile)
     {
         super();
-        
-        this.isEmpty = true;
         
         try
         {
@@ -79,8 +76,6 @@ public class TilePanel extends ImagePanel
         this.pieceLabel = pieceLabel;
         this.add(pieceLabel);
         
-        this.isEmpty = false;
-        
         this.revalidate();
         this.repaint();
     }
@@ -92,8 +87,6 @@ public class TilePanel extends ImagePanel
     {
         this.tile.removeChessPiece();
         this.remove(pieceLabel);
-
-        this.isEmpty = true;
 
         this.revalidate();
         this.repaint();
@@ -117,6 +110,6 @@ public class TilePanel extends ImagePanel
     
     public boolean isEmpty()
     {
-        return isEmpty;
+        return !tile.getIsOccupied();
     }
 }

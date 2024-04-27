@@ -1,1 +1,6 @@
-- remove sout statements in Click Event Class
+facilitate:
+    - castling
+    - en pessant
+    - promotion
+
+enable king-check warning

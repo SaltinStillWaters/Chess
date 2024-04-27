@@ -23,92 +23,104 @@ public class TilePanelClickEvent extends MouseAdapter
     {
         Model_Main model = Model_Main.getInstance();
         TilePanel clickedTile = (TilePanel) e.getSource();
-        
 
-        //set current and dest tiles and check for invalid        
-        boolean validTile = true;
-        
-        if (!model.hasCurrTile())
-        {
-            if (clickedTile.isEmpty())  
-            {
-                validTile = false;
-            }
-            else                        
-            {
-                //check for correct side's turn
-                boolean currPieceIsWhite = clickedTile.getPieceLabel().getChessPiece().isWhite;
-                
-                if (currPieceIsWhite == model.getIsWhiteToTurn())
-                {
-                    model.setCurrTileClicked(clickedTile);
-                    clickedTile.markAsSelected();
-                }
-                else
-                {
-                    validTile = false;
-                }
-            }
-        }
-        else 
-        {
-            if (model.getCurrTileClicked() == clickedTile)  
-            {
-                validTile = false;
-            }
-            else                                            
-            {
-                model.setDestTileClicked(clickedTile);
-            }
-        }
-        
-        
-        //possible early return
+        boolean validTile = checkValidTileClicked(model, clickedTile);     
+
         if (!validTile)
         {
             postMoveCleanUp();
             return;
         }
         
+        setCurrOrDestTiles(model, clickedTile);
+        markCurrTile(model, clickedTile);
+
         if (!model.hasDestTile())
         {
             return;
         }
 
+
+        //check if valid move and execute move
+
         ChessPiece currPiece = model.getCurrTileClicked().getTile().getChessPiece();
-        ChessPiece destPiece = clickedTile.getTile().getChessPiece();
-        
         String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
         String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
         
-        
         boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
-        // check if piece is capturing its own side (white piece capturing another white
-        // piece)
-        boolean canCapture = true;
-        if (destPiece != null)
-        {
-            canCapture = currPiece.canCapture(destPiece);
-        }
-        // if destPiece = null, then destTile has no piece; therefore no need to check
-        // if you can capture
 
-        // Execute move
-        if (validMove && canCapture)
-        {
-            TilePanel currTile = model.getCurrTileClicked();
-            clickedTile.setPieceLabel(currTile.getPieceLabel());
-            currTile.removePieceLabel();
+        ChessPiece destPiece = clickedTile.getTile().getChessPiece();
+        boolean canCapture = checkCanCapture(currPiece, destPiece);
+        
+        validMove = validMove && canCapture;        
+        executeMove(validMove, model, clickedTile);
 
-            if (Config.AUTO_FLIP_BOARD)
-            {
-                model.getMainFrameInstance().flipBoard();
-            }
-
-            model.switchTurn();
-        }
         postMoveCleanUp();
     }   
+
+    private void markCurrTile(Model_Main model, TilePanel currTile)
+    {
+        if (!model.hasDestTile())
+        {
+            currTile.markAsSelected();
+        }
+    }
+    private void executeMove(boolean validMove, Model_Main model, TilePanel clickedTile)
+    {
+        if (!validMove)
+        {
+            return;
+        }
+
+        TilePanel currTile = model.getCurrTileClicked();
+        clickedTile.setPieceLabel(currTile.getPieceLabel());
+        currTile.removePieceLabel();
+        
+        if (Config.AUTO_FLIP_BOARD)
+        {
+            model.getMainFrameInstance().flipBoard();
+        }
+        model.switchTurn();
+    }
+
+    private boolean checkCanCapture(ChessPiece currPiece, ChessPiece destPiece)
+    {
+        if (destPiece != null)
+        {
+            return currPiece.canCapture(destPiece);
+        }
+
+        return true;
+    }
+    private void setCurrOrDestTiles(Model_Main model, TilePanel clickedTile)
+    {
+        if (!model.hasCurrTile())
+        {
+            model.setCurrTileClicked(clickedTile);
+        }
+        else
+        {
+            model.setDestTileClicked(clickedTile);
+        }
+    }
+
+    private boolean checkValidTileClicked(Model_Main model, TilePanel clickedTile)
+    {
+        if (!model.hasCurrTile() && clickedTile.isEmpty())
+        {
+            return false;
+        }
+        else if (!model.hasCurrTile() && clickedTile.getPieceLabel().getChessPiece().isWhite != model.getIsWhiteToTurn())                       
+        {
+            return false;
+        }
+        else if (model.getCurrTileClicked() == clickedTile)
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Sets the necessary state of the Model_Main singleton to its default value.

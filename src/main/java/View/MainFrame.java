@@ -62,6 +62,11 @@ public class MainFrame extends JFrame
      */
     public void flipBoard()
     { 
+        if (!Config.AUTO_FLIP_BOARD)
+        {
+            return;
+        }
+        
         boardImagePanel.removeAll();
         
         if (Model_Main.getInstance().getIsWhiteToTurn())
