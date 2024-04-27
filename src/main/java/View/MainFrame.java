@@ -91,13 +91,6 @@ public class MainFrame extends JFrame
             boardImagePanel.setBackgroundImage("/ChessBoard_WhitePOV.png");
         }
         
-        ChessBoard board = ChessBoard.getInstance();
-        ArrayList<ArrayList<TilePanel>> tilePanels = Model_Main.getInstance().getMainFrameInstance().tilePanels;
-        System.out.println("board:");
-        System.out.println(board.getTile("A1").getChessPiece());
-        System.out.println("panel:");
-        System.out.println(tilePanels.get(0).get(0).getPieceLabel().getChessPiece());
-        System.out.println();
         this.revalidate();
         this.repaint();
     }

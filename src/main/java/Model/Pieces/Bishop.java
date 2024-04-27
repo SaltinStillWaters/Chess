@@ -20,7 +20,6 @@ public class Bishop extends ChessPiece
         int rowDiff = Math.abs(currCoordinate.charAt(1) - destCoordinate.charAt(1));
         
         boolean isValid = (colDiff == rowDiff); 
-        
         if (isValid)
         {
             isValid = checkObstruction(currCoordinate, destCoordinate);

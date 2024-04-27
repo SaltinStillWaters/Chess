@@ -48,6 +48,18 @@ public class ChessBoard
         this.initPieces();
     }
     
+    public void printPieces()
+    {
+        for (int x = 0; x < 8; ++x)
+        {
+            for (int y = 0; y < 8; ++y)
+            {
+                System.out.print(board.get(x).get(y) + "    ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
     private void initPieces()
     {
         //Pawns

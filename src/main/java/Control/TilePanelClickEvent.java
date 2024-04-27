@@ -81,61 +81,11 @@ public class TilePanelClickEvent extends MouseAdapter
         String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
         String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
         
-        int isCastling = checkCastling(currPiece, destPiece, currCoordinate, destCoordinate);
-
-        if (isCastling > 0)
-        {
-            ChessBoardPanel viewBoard = ChessBoardPanel.getInstance();
-         
-            if (!model.getIsWhiteToTurn())
-            {
-                model.getMainFrameInstance().flipBoard();
-            }
-
-            switch (isCastling) 
-            {
-                case 1:
-                    viewBoard.getTilePanel("C1").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
-                    model.getCurrTileClicked().removePieceLabel();
-
-                    viewBoard.getTilePanel("D1").setPieceLabel(viewBoard.getTilePanel("A1").getPieceLabel());
-                    viewBoard.getTilePanel("A1").removePieceLabel();
-                    break;
-                case 2:
-                    viewBoard.getTilePanel("G1").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
-                    model.getCurrTileClicked().removePieceLabel();
-
-                    viewBoard.getTilePanel("F1").setPieceLabel(viewBoard.getTilePanel("H1").getPieceLabel());
-                    viewBoard.getTilePanel("H1").removePieceLabel();
-                    break;
-                case 3:
-                    viewBoard.getTilePanel("C8").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
-                    model.getCurrTileClicked().removePieceLabel();
-
-                    viewBoard.getTilePanel("D8").setPieceLabel(viewBoard.getTilePanel("A8").getPieceLabel());
-                    viewBoard.getTilePanel("A8").removePieceLabel();
-                    break;
-                case 4:
-                    viewBoard.getTilePanel("G8").setPieceLabel(model.getCurrTileClicked().getPieceLabel());
-                    model.getCurrTileClicked().removePieceLabel();
-
-                    viewBoard.getTilePanel("F8").setPieceLabel(viewBoard.getTilePanel("H8").getPieceLabel());
-                    viewBoard.getTilePanel("H8").removePieceLabel();
-                    break;
-                default:
-                    break;
-            }
-
-            if (!model.getIsWhiteToTurn())
-            {
-                model.getMainFrameInstance().flipBoard();
-            }
+        
             
-        }
-        else
+        
         {
             boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
-            
             //check if piece is capturing its own side (white piece capturing another white piece)
                 boolean canCapture = true;
                 if (destPiece != null)
@@ -143,7 +93,7 @@ public class TilePanelClickEvent extends MouseAdapter
                     canCapture = currPiece.canCapture(destPiece);
                 }
                 //if destPiece = null, then destTile has no piece; therefore no need to check if you can capture
-            
+
             //Execute move
             if (validMove && canCapture)
             {
@@ -151,11 +101,12 @@ public class TilePanelClickEvent extends MouseAdapter
                 clickedTile.setPieceLabel(currTile.getPieceLabel());
                 currTile.removePieceLabel();
                 
-                model.getMainFrameInstance().flipBoard();
+                //model.getMainFrameInstance().flipBoard();
                 model.switchTurn();
             }    
         }
 
+        ChessBoard board = ChessBoard.getInstance();
         postMoveCleanUp();
     }   
 
