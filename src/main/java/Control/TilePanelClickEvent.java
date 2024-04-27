@@ -23,7 +23,7 @@ public class TilePanelClickEvent extends MouseAdapter
     {
         Model_Main model = Model_Main.getInstance();
         TilePanel clickedTile = (TilePanel) e.getSource();
-
+        
         boolean validTile = checkValidTileClicked(model, clickedTile);     
 
         if (!validTile)
@@ -41,12 +41,18 @@ public class TilePanelClickEvent extends MouseAdapter
         }
 
 
-        //check if valid move and execute move
+        //check if move is valid and execute it
 
         ChessPiece currPiece = model.getCurrTileClicked().getTile().getChessPiece();
         String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
         String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
         
+        if (checkCastleAttempt(currCoordinate, destCoordinate, currPiece))
+        {
+            System.out.println("Valid");
+        }
+        System.out.println("Invalid");
+
         boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
 
         ChessPiece destPiece = clickedTile.getTile().getChessPiece();
@@ -57,6 +63,18 @@ public class TilePanelClickEvent extends MouseAdapter
 
         postMoveCleanUp();
     }   
+
+    private boolean checkCastleAttempt(String currCoordinate, String destCoordinate, ChessPiece currPiece)
+    {
+        if (currPiece.name != "King")
+        {
+            System.out.println("piece is not king");
+            return false;
+        }
+
+        King king = (King) currPiece;
+        return king.checkCastleAttempt(currCoordinate, destCoordinate);
+    }
 
     private void markCurrTile(Model_Main model, TilePanel currTile)
     {
@@ -129,7 +147,7 @@ public class TilePanelClickEvent extends MouseAdapter
     private void postMoveCleanUp()
     {
         Model_Main model = Model_Main.getInstance();
-        
+
         if (model.hasCurrTile())
         {
             model.getCurrTileClicked().removeMarkAsSelected();
