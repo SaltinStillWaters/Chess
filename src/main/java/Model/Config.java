@@ -20,7 +20,7 @@ public class Config
     {
         //configurable
         CHESSBOARD_SIZE = 640;
-        AUTO_FLIP_BOARD = true;
+        AUTO_FLIP_BOARD = false;
         
         //not-configurable
         PIECE_SIZE = CHESSBOARD_SIZE / 9;

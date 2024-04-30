@@ -1,9 +1,7 @@
 package Control;
 
 
-import Model.Config;
 import Model.Model_Main;
-import Model.ChessBoard.ChessBoard;
 import Model.Pieces.ChessPiece;
 import View.TilePanel;
 import java.awt.event.MouseAdapter;
@@ -28,7 +26,7 @@ public class TilePanelClickEvent extends MouseAdapter
 
         if (!validTile)
         {
-            postMoveCleanUp();
+            postMoveCleanUp(model);
             return;
         }
         
@@ -37,43 +35,35 @@ public class TilePanelClickEvent extends MouseAdapter
 
         if (!model.hasDestTile())
         {
+            //return because no move is supposed to be executed yet
             return;
         }
 
 
-        //check if move is valid and execute it
-
+        //validate move and execute it
         ChessPiece currPiece = model.getCurrTileClicked().getTile().getChessPiece();
         String currCoordinate = model.getCurrTileClicked().getTile().getCoordinate();
         String destCoordinate = model.getDestTileClicked().getTile().getCoordinate();
         
-        if (checkCastleAttempt(currCoordinate, destCoordinate, currPiece))
+        if (Castling.checkValidCastle(currCoordinate, destCoordinate, currPiece))
         {
-            System.out.println("Valid");
+            Castling.castle(model.getCurrTileClicked(), currCoordinate, destCoordinate);
+            
+            model.getMainFrameInstance().flipBoard();
+            model.switchTurn();
         }
-        System.out.println("Invalid");
-
-        boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
-
-        ChessPiece destPiece = clickedTile.getTile().getChessPiece();
-        boolean canCapture = checkCanCapture(currPiece, destPiece);
-        
-        validMove = validMove && canCapture;        
-        executeMove(validMove, model, clickedTile);
-
-        postMoveCleanUp();
-    }   
-
-    private boolean checkCastleAttempt(String currCoordinate, String destCoordinate, ChessPiece currPiece)
-    {
-        if (currPiece.name != "King")
-        {
-            System.out.println("piece is not king");
-            return false;
+        else
+        {    
+            boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
+                
+            ChessPiece destPiece = clickedTile.getTile().getChessPiece();
+            boolean canCapture = checkCanCapture(currPiece, destPiece);
+            
+            validMove = validMove && canCapture;        
+            executeMove(validMove, model, clickedTile);
         }
 
-        King king = (King) currPiece;
-        return king.checkCastleAttempt(currCoordinate, destCoordinate);
+        postMoveCleanUp(model);
     }
 
     private void markCurrTile(Model_Main model, TilePanel currTile)
@@ -83,6 +73,7 @@ public class TilePanelClickEvent extends MouseAdapter
             currTile.markAsSelected();
         }
     }
+
     private void executeMove(boolean validMove, Model_Main model, TilePanel clickedTile)
     {
         if (!validMove)
@@ -90,14 +81,25 @@ public class TilePanelClickEvent extends MouseAdapter
             return;
         }
 
+        
         TilePanel currTile = model.getCurrTileClicked();
         clickedTile.setPieceLabel(currTile.getPieceLabel());
         currTile.removePieceLabel();
         
-        if (Config.AUTO_FLIP_BOARD)
+        ChessPiece piece = clickedTile.getPieceLabel().getChessPiece();
+
+        if (piece.name.equals("King"))
         {
-            model.getMainFrameInstance().flipBoard();
+            King king = (King) piece;
+            king.setHasMoved();
         }
+        else if (piece.name.equals("Rook"))
+        {
+            Rook rook = (Rook) piece;
+            rook.setHasMovedToTrue();
+        }
+
+        model.getMainFrameInstance().flipBoard();
         model.switchTurn();
     }
 
@@ -144,10 +146,8 @@ public class TilePanelClickEvent extends MouseAdapter
      * Sets the necessary state of the Model_Main singleton to its default value.
      * It also clears the Mark on the 'currTileClicked'
      */
-    private void postMoveCleanUp()
+    private void postMoveCleanUp(Model_Main model)
     {
-        Model_Main model = Model_Main.getInstance();
-
         if (model.hasCurrTile())
         {
             model.getCurrTileClicked().removeMarkAsSelected();
@@ -156,62 +156,6 @@ public class TilePanelClickEvent extends MouseAdapter
         model.clearDestAndCurrTiles();
     }
     
-    private int checkCastling(ChessPiece currPiece, ChessPiece destPiece, String currCoordinate, String destCoordinate)
-    {
-        if (destPiece != null || currPiece.name != "King" || currPiece.checkMove(currCoordinate, destCoordinate))
-        {
-            return 0;
-        }
-
-        King king = (King) currPiece;
-        if (king.getHasMoved())
-        {
-            return 0;
-        }
-        
-        ChessPiece possibleRook = null;
-        ChessBoard board = ChessBoard.getInstance();
-        int result = 0;
-        if (king.isWhite) 
-        {
-            if (destCoordinate.equals("G1")) 
-            {
-                possibleRook = board.getTile("G1").getChessPiece();
-                result = 2;
-            } 
-            else if (destCoordinate.equals("C1") || destCoordinate.equals("B1")) 
-            {
-                possibleRook = board.getTile("A1").getChessPiece();
-                result = 1;
-            }
-        } 
-        else 
-        {
-            if (destCoordinate.equals("G8")) 
-            {
-                possibleRook = board.getTile("G8").getChessPiece();
-                result = 4;
-            } 
-            else if (destCoordinate.equals("C8") || destCoordinate.equals("B8")) 
-            {
-                possibleRook = board.getTile("A8").getChessPiece();
-                result = 3;
-            }
-        }
-
-        if (possibleRook == null || possibleRook.name != "Rook" || possibleRook.isWhite != king.isWhite)
-        {
-            return 0;
-        }
-
-        Rook rook = (Rook) possibleRook;
-        if (rook.getHasMoved())
-        {
-            return 0;
-        }
-
-        return result;
-    }
     
     @Override
     public void mouseClicked(MouseEvent e) 
