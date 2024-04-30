@@ -7,6 +7,8 @@ import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Model.Pieces.King;
+import Model.Pieces.Pawn;
+import Model.Pieces.Queen;
 import Model.Pieces.Rook;
 
 /**
@@ -60,7 +62,7 @@ public class TilePanelClickEvent extends MouseAdapter
             boolean canCapture = checkCanCapture(currPiece, destPiece);
             
             validMove = validMove && canCapture;        
-            executeMove(validMove, model, clickedTile);
+            executeMove(validMove, model, clickedTile , destCoordinate);
         }
 
         postMoveCleanUp(model);
@@ -74,7 +76,7 @@ public class TilePanelClickEvent extends MouseAdapter
         }
     }
 
-    private void executeMove(boolean validMove, Model_Main model, TilePanel clickedTile)
+    private void executeMove(boolean validMove, Model_Main model, TilePanel clickedTile, String destCoordinate)
     {
         if (!validMove)
         {
@@ -97,6 +99,13 @@ public class TilePanelClickEvent extends MouseAdapter
         {
             Rook rook = (Rook) piece;
             rook.setHasMovedToTrue();
+        }
+
+        if (piece.name.equals("Pawn") && ((Pawn) piece).checkPromotion(destCoordinate)) {
+            clickedTile.promotePawn(piece.isWhite);
+        } else {
+            clickedTile.setPieceLabel(currTile.getPieceLabel());
+            currTile.removePieceLabel();
         }
 
         model.getMainFrameInstance().flipBoard();
