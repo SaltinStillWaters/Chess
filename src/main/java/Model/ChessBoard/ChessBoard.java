@@ -54,7 +54,7 @@ public class ChessBoard
         {
             for (int y = 0; y < 8; ++y)
             {
-                System.out.print(board.get(x).get(y).getIsOccupied() + "    ");
+                System.out.print(board.get(x).get(y).getIsOccupied() + "\t");
             }
             System.out.println();
         }

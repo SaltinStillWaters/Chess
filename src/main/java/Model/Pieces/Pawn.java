@@ -74,21 +74,36 @@ public class Pawn extends ChessPiece
     protected boolean checkObstruction(String currCoordinate, String destCoordinate)
     {
         int rowDiff = destCoordinate.charAt(1) - currCoordinate.charAt(1);
-        
-        if (Math.abs(rowDiff) == 1)
+        int colDiff = destCoordinate.charAt(0) - currCoordinate.charAt(0);
+
+        if (Math.abs(rowDiff) == 1 && Math.abs(colDiff) == 1)
         {
             return true;
         }
         
+        String coordinateToCheck = currCoordinate;
         
-        StringBuilder coordinateToCheck = new StringBuilder(currCoordinate);
+        char row = currCoordinate.charAt(1);
+        System.out.println("init row: " + row);
+        ChessBoard chessBoard = ChessBoard.getInstance();
+
+        for (int x = 0; x < rowDiff; ++x)
+        {
+            row +=  rowDiff / Math.abs(rowDiff);
+            System.out.println("row: " + row);
+            coordinateToCheck = coordinateToCheck.substring(0, 1);
+            System.out.println("coord: " + coordinateToCheck);
+            coordinateToCheck += row;
+            
+            if (chessBoard.getTile(coordinateToCheck).getIsOccupied())
+            {
+                System.out.println(coordinateToCheck);
+                System.out.println(chessBoard.getTile(coordinateToCheck).getIsOccupied());
+                return false;
+            }
+        }
         
-        char rowCoordinate = (char) (currCoordinate.charAt(1) + rowDiff / Math.abs(rowDiff));
-        
-        coordinateToCheck.setCharAt(1, rowCoordinate);
-        
-        //returns true if tile is not occupied
-        return ! (ChessBoard.getInstance().getTile(coordinateToCheck.toString()).getIsOccupied());
+       return true;
     }
     
     private boolean checkCapture(String currCoordinate, String destCoordinate)

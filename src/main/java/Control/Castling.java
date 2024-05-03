@@ -64,7 +64,7 @@ public class Castling
         rook.setHasMovedToTrue();
     }
 
-    public static boolean checkValidCastle(String currCoordinate, String destCoordinate, ChessPiece currPiece)
+    public static boolean checkValid(String currCoordinate, String destCoordinate, ChessPiece currPiece)
     {
         if (currPiece.name != "King")
         {

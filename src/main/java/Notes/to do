@@ -8,3 +8,7 @@ enable king-check warning
 Salt to do:
     - extract executeMove from TilePanelCLickedEvent
         - create another static class for it
+
+Rolf to do:
+    - extract pawn promotion  
+        - create a seperate class for it

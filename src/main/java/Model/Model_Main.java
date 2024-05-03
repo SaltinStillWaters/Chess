@@ -11,7 +11,8 @@ public class Model_Main
     private boolean isWhiteToTurn;
     private boolean hasCurrTile;
     private boolean hasDestTile;
-    
+    private TilePanel validEnPassantPawn;
+
     private Model_Main()
     {
         this.mainFrameInstance = new MainFrame();
@@ -19,6 +20,22 @@ public class Model_Main
         isWhiteToTurn = true;
         hasCurrTile = false;
         hasDestTile = false;
+        validEnPassantPawn = null;
+    }
+
+    public TilePanel getValidEnPassantPawn()
+    {
+        return validEnPassantPawn;
+    }
+
+    public void setValidEnPassantPawn(TilePanel pawn)
+    {
+        this.validEnPassantPawn = pawn;
+    }
+
+    public void removeValidEnPassantPawn()
+    {
+        this.validEnPassantPawn = null;
     }
 
     public MainFrame getMainFrameInstance()
