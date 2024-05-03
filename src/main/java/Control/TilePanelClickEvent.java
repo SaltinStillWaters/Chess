@@ -7,8 +7,6 @@ import View.TilePanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Model.Pieces.King;
-import Model.Pieces.Pawn;
-import Model.Pieces.Queen;
 import Model.Pieces.Rook;
 
 /**
@@ -54,8 +52,11 @@ public class TilePanelClickEvent extends MouseAdapter
             model.getMainFrameInstance().flipBoard();
             model.switchTurn();
         }
-        else
-        {    
+        else if(Promotion.checkPromotion(destCoordinate, currPiece)){
+            Promotion.promotePawn(currPiece.isWhite, model.getCurrTileClicked(),model.getDestTileClicked(),currPiece);
+            model.getMainFrameInstance().flipBoard();
+            model.switchTurn();
+        } else {    
             boolean validMove = currPiece.checkMove(currCoordinate, destCoordinate);
                 
             ChessPiece destPiece = clickedTile.getTile().getChessPiece();
@@ -99,13 +100,6 @@ public class TilePanelClickEvent extends MouseAdapter
         {
             Rook rook = (Rook) piece;
             rook.setHasMovedToTrue();
-        }
-
-        if (piece.name.equals("Pawn") && ((Pawn) piece).checkPromotion(destCoordinate)) {
-            clickedTile.promotePawn(piece.isWhite);
-        } else {
-            clickedTile.setPieceLabel(currTile.getPieceLabel());
-            currTile.removePieceLabel();
         }
 
         model.getMainFrameInstance().flipBoard();

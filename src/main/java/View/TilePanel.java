@@ -3,8 +3,6 @@ package View;
 
 import Control.TilePanelClickEvent;
 import Model.ChessBoard.Tile;
-import Model.Pieces.ChessPiece;
-import Model.Pieces.Queen;
 
 import java.awt.FlowLayout;
 
@@ -116,21 +114,4 @@ public class TilePanel extends ImagePanel
         return !tile.getIsOccupied();
     }
 
-    public void promotePawn(boolean isWhite) {
-        // Remove existing
-        if (pieceLabel != null) {
-            this.remove(pieceLabel);
-        }
-
-        // Create a queen and replace
-        ChessPiece queen = new Queen(isWhite);
-        pieceLabel = new PieceLabel(queen);
-
-        // Update
-        tile.setChessPiece(queen);
-        this.add(pieceLabel);
-
-        this.revalidate();
-        this.repaint();
-    }
 }

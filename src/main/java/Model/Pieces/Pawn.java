@@ -22,7 +22,6 @@ public class Pawn extends ChessPiece
         
         
         boolean isValid = true;
-        boolean canPromote = false;
         if (colDiff != 0)
         {
             isValid = false;
@@ -59,8 +58,6 @@ public class Pawn extends ChessPiece
                 isValid = false;
             }
         }
-
-        canPromote = checkPromotion(destCoordinate);
         
         if (isValid)
         {
@@ -108,15 +105,4 @@ public class Pawn extends ChessPiece
         
         return canCapture;
     }
-
-    public boolean checkPromotion(String destCoordinate){
-        if (destCoordinate.charAt(1) == '8' && this.isWhite) {
-            return true;
-        } else if (destCoordinate.charAt(1) == '1' && !this.isWhite) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }
