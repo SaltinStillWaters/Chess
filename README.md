@@ -26,7 +26,7 @@ The project was built using **Java Swing** for the interface and demonstrates th
 </p>
 
 <p align="center">
-  <img src="images/3.png" alt="Game Over Screen" width="60%">
+  <img src="images/3.png" alt="Game Over Screen" width="40%">
 </p>
 ---
 
