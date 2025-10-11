@@ -21,11 +21,8 @@ The project was built using **Java Swing** for the interface and demonstrates th
 ## Preview
 
 <p align="center">
-  <img src="images/1.png" alt="Chess App Start Screen" width="60%">
-</p>
-
-<p align="center">
-  <img src="images/2.png" alt="Gameplay Screenshot" width="60%">
+  <img src="images/1.png" alt="Chess App Start Screen" width="40%">
+  <img src="images/2.png" alt="Gameplay Screenshot" width="40%">
 </p>
 
 <p align="center">
