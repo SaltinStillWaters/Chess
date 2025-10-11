@@ -31,8 +31,8 @@ The project was built using **Java Swing** for the interface and demonstrates th
 ---
 
 ## Developers
-- **You**  
-- **Rolfdood (Ralph Bello)**  
+- **SaltinStillWater (Mychal Pejana)**  
+- **[Rolfdood (Ralph Bello)](https://github.com/rolfdood)**  
 
 ---
 
