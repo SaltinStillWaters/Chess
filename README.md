@@ -1,4 +1,4 @@
-# ♟️ Chess Application
+# Chess Application
 
 ![Java](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge)
 ![UI](https://img.shields.io/badge/UI-Swing-blue?style=for-the-badge)
@@ -18,7 +18,7 @@ The project was built using **Java Swing** for the interface and demonstrates th
 
 ---
 
-## Preview
+# Preview
 
 <p align="center">
   <img src="images/1.png" alt="Chess App Start Screen" width="40%">
@@ -30,20 +30,20 @@ The project was built using **Java Swing** for the interface and demonstrates th
 </p>
 ---
 
-## Developers
+# Developers
 - **SaltinStillWater (Mychal Pejana)**  
 - **[Rolfdood (Ralph Bello)](https://github.com/rolfdood)**  
 
 ---
 
-## 🛠️ Technologies Used
+# Technologies Used
 - **Language:** Java  
 - **GUI Framework:** Swing  
 - **Architecture:** MVC (Model–View–Controller)
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 ```bash
 # Compile
 javac -d bin src/**/*.java
